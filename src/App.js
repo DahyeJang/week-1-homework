@@ -24,15 +24,22 @@ function App() {
   const [body, setBody] = useState("");
 
   //todo 완료 및 취소 기능(isdone을 true,true면 false로 바꾸기)
-  //업데이트하려면 => 이렇게 쓰기! 비동기
   const onChangeHandler = (id) => {
-    setTodo((todo) =>
-      todo.map(
-        (todo) => (todo.id === id ? { ...todo, isDone: !todo.isDone } : todo)
-        // 아이디가 다르면 그대로 유지 : todo
-        // 같으면 {} 실행. todo를 다 가져오고 isDone을 false로
-      )
+    // 첫번째 방법 : setTodo에 다 넣어주기
+    // setTodo((todo) =>
+    //   todo.map(
+    //     (todo) => (todo.id === id ? { ...todo, isDone: !todo.isDone } : todo)
+    //     // 아이디가 다르면 그대로 유지 : todo
+    //     // 같으면 {} 실행. todo를 다 가져오고 isDone을 false로
+    //   )
+    // );
+
+    // 두번째 방법 : 변수를 하나 만들고 그것을 setTodo에 넣어주기
+    const updateTodo = todo.map((todo) =>
+      todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
     );
+
+    setTodo(updateTodo);
   };
 
   //todo를 추가해주는 함수

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Header from "./components/Header";
-import Card from "./components/Card";
+import Layout from "./components/Layout";
+import AddForm from "./components/AddForm";
+import TodoList from "./components/TodoList";
+
 import "./App.css";
 
 function App() {
@@ -72,62 +75,22 @@ function App() {
   const todoWork = todo.filter((todo) => !todo.isDone);
 
   return (
-    <div className="App">
-      <div className="Container">
-        <Header />
-        <div className="add-form">
-          <div className="input-group">
-            제목
-            <input
-              className="add-input"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            ></input>
-            내용
-            <input
-              className="add-input"
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-            ></input>
-          </div>
-          <button className="add-button" onClick={onSubmitHandler}>
-            추가하기
-          </button>
-        </div>
-        <div className="list-container">
-          <div>
-            <h2>Working..</h2>
-            <div className="list-wrapper">
-              {todoWork.map((todo) => {
-                return (
-                  <Card
-                    todo={todo}
-                    key={todo.id}
-                    handleDelete={handleDelete}
-                    onChangeHandler={onChangeHandler}
-                  />
-                );
-              })}
-            </div>
-          </div>
-          <div>
-            <h2>Done..!</h2>
-            <div className="list-wrapper">
-              {todoDone.map((todo) => {
-                return (
-                  <Card
-                    todo={todo}
-                    key={todo.id}
-                    handleDelete={handleDelete}
-                    onChangeHandler={onChangeHandler}
-                  />
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Layout>
+      <Header />
+      <AddForm
+        title={title}
+        setTitle={setTitle}
+        body={body}
+        setBody={setBody}
+        onSubmitHandler={onSubmitHandler}
+      />
+      <TodoList
+        todoDone={todoDone}
+        todoWork={todoWork}
+        handleDelete={handleDelete}
+        onChangeHandler={onChangeHandler}
+      />
+    </Layout>
   );
 }
 
